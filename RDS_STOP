@@ -1,0 +1,34 @@
+import boto3
+
+rds_client = boto3.client('rds')
+
+def stop_db_instances(dbIndentifier):
+    response =rds_client.stop_db_instance(
+        DBInstanceIdentifier = str(dbIndentifier)
+    )
+
+def get_current_status(dbIndentifier):
+    
+    
+    response = rds_client.describe_db_instances(
+        DBInstanceIdentifier=str(dbIndentifier)
+    )
+
+    db_intances = response['DBInstances']
+    for inst in db_intances:
+        if inst['DBInstanceIdentifier'] == dbIndentifier and inst['DBInstanceStatus'] == "available" :
+		stop_db_instances(dbIndentifier)
+	if inst['DBInstanceIdentifier'] == dbIndentifier and inst['DBInstanceStatus'] == "stopped" :
+		print dbIndentifier,"- db instance is already in stooped state"
+
+
+def lambda_handler(event, context):
+    
+
+    dbnames= ["delhivery-direct-production"]
+    for db in dbnames:
+        get_current_status(db)
+        
+    return {
+        'statusCode': 200
+    }

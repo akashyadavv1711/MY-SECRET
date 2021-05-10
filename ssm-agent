@@ -1,0 +1,71 @@
+for ubuntu 14
+
+ mkdir /tp/ssm/
+ cd /tmp/ssm
+wget https://s3.ap-southeast-1.amazonaws.com/amazon-ssm-ap-southeast-1/latest/debian_amd64/amazon-ssm-agent.deb
+sudo dpkg -i amazon-ssm-agent.deb
+sudo status amazon-ssm-agent
+
+for ubuntu 16 
+
+mkdir /tp/ssm/
+ cd /tmp/ssm
+wget https://s3.ap-southeast-1.amazonaws.com/amazon-ssm-ap-southeast-1/latest/debian_amd64/amazon-ssm-agent.deb
+sudo dpkg -i amazon-ssm-agent.deb
+sudo systemctl status amazon-ssm-agent
+
+for ubuntu 16 lts and above
+
+sudo snap install amazon-ssm-agent --classic
+sudo snap switch --channel=candidate amazon-ssm-agent
+sudo systemctl status snap.amazon-ssm-agent.amazon-ssm-agent.service
+
+
+for amazon linux
+
+https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
+sudo start amazon-ssm-agent
+sudo status amazon-ssm-agent
+
+for amazon linux 2
+
+https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
+https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_arm64/amazon-ssm-agent.rpm
+sudo systemctl enable amazon-ssm-agent
+sudo systemctl start amazon-ssm-agent
+sudo systemctl status amazon-ssm-agent
+
+for debian
+
+mkdir /tp/ssm/
+ cd /tmp/ssm
+ wget https://s3.region.amazonaws.com/amazon-ssm-region/latest/debian_amd64/amazon-ssm-agent.deb
+sudo dpkg -i amazon-ssm-agent.deb
+sudo systemctl status amazon-ssm-agent
+
+for ecs (centos)
+
+sudo yum install -y https://s3.region.amazonaws.com/amazon-ssm-region/latest/linux_amd64/amazon-ssm-agent.rpm
+sudo systemctl enable amazon-ssm-agent
+sudo systemctl start amazon-ssm-agent
+sudo systemctl status amazon-ssm-agent
+
+
+
+
+
+
+
+SSM-POLICY   Inline POLICY
+
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Stmt1619768705064",
+      "Action": "ssm:*",
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ]
+}
